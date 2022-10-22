@@ -1,15 +1,100 @@
 // import logo from "./logo.svg";
+import {
+  useState,
+  useRef,
+  useCallback,
+  createContext,
+  useReducer,
+} from "react";
 import "./App.css";
-// import MyComponent from "./components/MyComponents";
-// import Counter from "./components/Counter";
-import InputText from "./components/InputText";
+import AddUser from "./components/AddUser";
 import UserList from "./components/UserList";
-
+import useInputs from "./hooks/useInputs";
+import useInputReducer from "./hooks/userInputReducer";
+export const UserDispatchContext = createContext(null);
+export const UserStateContext = createContext(null);
 // 컴포넌트 : 하나의 조각
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE_USER": {
+      const { inputs, id } = action;
+      return [...state, { inputs, id }];
+    }
+    case "REMOVE_USER": {
+      const { id } = action;
+      return state.filter((user) => user.id !== id);
+    }
+    case "TOGGLE_USER": {
+      const { id } = action;
+      return state.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      );
+    }
+    default:
+      return state;
+  }
+}
+const initialUserList = [
+  {
+    id: 1,
+    name: "황보석",
+    age: 30,
+    active: true,
+  },
+  {
+    id: 2,
+    name: "제이스",
+    age: 30,
+    active: false,
+  },
+  {
+    id: 3,
+    name: "제리",
+    age: 30,
+    active: false,
+  },
+];
 
 // const boxStyle = { backgroundColor: "red", color: "#FFF" };
+
 function App() {
+  const [inputs, handleInput, reset] = useInputReducer({ name: "", age: 0 });
   // const text = "react";
+  const [userList, dispatch] = useReducer(reducer, initialUserList);
+  // useRef로 값을 관리하면 값이 변경되어도 리렌더링 x
+  // 특정값만 기억해놓고 사용
+  const nextId = useRef(4);
+
+  // const userCount = userList.length;
+
+  // console.log(userCount);
+
+  const onCreate = useCallback((inputs) => {
+    dispatch(
+      // useCallback 을 사용할 때 함수형 업데이트를 사용하면 의존성에서 제거할 수 있다.
+      { type: "CREATE_USER", inputs, id: nextId.current }
+    );
+
+    nextId.current++;
+  }, []);
+
+  const onRemove = useCallback((id) => {});
+  //window.confirm : 확인버튼 클릭시 true 반환
+  //   const ok = window.confirm("정말 삭제하시겠습니까?");
+  //   if (ok)
+  //     setUserList((userList) => userList.filter((user) => user.id !== id));
+  // }, []);
+
+  const onToggle = (id) => {
+    // setUserList(
+    //   userList.map((user) =>
+    //     // if (user.id === id) return { ...user, active: !user.active };
+    //     // else return user;
+    //     user.id === id ? { ...user, active: !user.active } : user
+    //   )
+    // );
+  };
+
   return (
     /* 
       jsx :JS 로 UI를 작성할 때 직관적으로 표현하기 위해서 사용.
@@ -31,8 +116,18 @@ function App() {
 
       {/* <Counter /> */}
       {/* <InputText /> */}
-
-      <UserList />
+      <UserDispatchContext.Provider value={dispatch}>
+        <UserStateContext.Provider value={userList}>
+          <AddUser
+            onCreate={onCreate}
+            inputs={inputs}
+            dispatch={dispatch}
+            handleInput={handleInput}
+            reset={reset}
+          />
+          <UserList userList={userList} />
+        </UserStateContext.Provider>
+      </UserDispatchContext.Provider>
     </>
   );
 }
