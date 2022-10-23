@@ -33,11 +33,14 @@ function TodoItem({ todo }) {
           <AiOutlineCheckCircle size={20} />
         )}
       </ChechBox>
-      <TodoText done={done}>{text}</TodoText>
+      <TodoText onClick={onToggle} done={done}>
+        {text}
+      </TodoText>
       <AiFillDelete
+        color="grey"
         onClick={onDelete}
         onMouseOver={({ target }) => (target.style.color = "red")}
-        onMouseOut={({ target }) => (target.style.color = "black")}
+        onMouseOut={({ target }) => (target.style.color = "grey")}
         cursor="pointer"
       />
     </ItemBlock>
@@ -70,6 +73,7 @@ const TodoText = styled.p`
   flex: 1;
   font-size: 0.8rem;
   margin-left: 5px;
+  cursor: pointer;
   ${({ done }) =>
     done &&
     css`

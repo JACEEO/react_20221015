@@ -23,6 +23,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  // const state = useTodoState();
+  // console.log(state);
   return (
     <>
       <GlobalStyle />

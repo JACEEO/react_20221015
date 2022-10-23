@@ -11,17 +11,17 @@ Object.freeze(TODO_TYPES); //객체 동결
 const initialTodoState = [
   {
     id: 1,
-    text: "todo 컴포넌트 만들기",
+    text: "Todo 컴포넌트 만들기",
     done: true,
   },
   {
     id: 2,
-    text: "todo 기능 구현하기",
+    text: "Todo 기능 구현하기",
     done: false,
   },
   {
     id: 3,
-    text: "todo 리팩토링 하기",
+    text: "Todo 리팩토링 하기",
     done: true,
   },
 ];
@@ -61,10 +61,14 @@ export function TodoProvider({ children }) {
 //   return [todos, dispatch];
 // }
 export function useTodoState() {
+  const context = useContext(TodoStateContext);
+  if (!context) throw new Error("connot find TodoProvider");
   return useContext(TodoStateContext);
 }
 
 export function useTodoDispatch() {
+  const context = useContext(TodoStateContext);
+  if (!context) throw new Error("connot find TodoProvider");
   return useContext(TodoDispatchContext);
 }
 
