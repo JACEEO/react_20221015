@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
-function TodoHeader() {
+function TodoHeader({ todos }) {
   const dateStr = new Date().toLocaleDateString("ko-KR", { dateStyle: "full" });
+  const total = todos.length;
+
+  const donecount = todos.filter((todo) => todo.done).length;
+
+  const percentage = total !== 0 ? Math.floor((donecount / total) * 100) : 0;
 
   return (
     <HeaderBlock>
       <DateText>{dateStr}</DateText>
-      <CountText>완료 : 0/2</CountText>
-      <StatusBar>
-        <Percentage>50%</Percentage>
+      <CountText>
+        완료 : {donecount}/{total}
+      </CountText>
+      <StatusBar percentage={percentage}>
+        <Percentage>{percentage}%</Percentage>
       </StatusBar>
     </HeaderBlock>
   );
@@ -47,13 +54,17 @@ const StatusBar = styled.div`
   &::before {
     content: "";
     display: block;
-    width: 50%;
+    width: 100%;
     height: 100%;
     background-color: ${({ theme }) => theme.colors.main};
 
     position: absolute;
     left: 0;
     top: 0;
+
+    transform-origin: left;
+    transform: scaleX(${({ percentage }) => percentage}%);
+    transition: 0.25s;
   }
 `;
 
