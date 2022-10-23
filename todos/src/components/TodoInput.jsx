@@ -1,9 +1,10 @@
 import { useRef, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import { lighten } from "polished";
-import { TODO_TYPES } from "../hooks/useTodoReducer";
+import { TODO_TYPES, useTodoDispatch } from "../hooks/useTodoReducer";
 
-function TodoInput({ dispatch }) {
+function TodoInput() {
+  const dispatch = useTodoDispatch();
   const [text, setText] = useState("");
 
   const [active, setActive] = useState(false);

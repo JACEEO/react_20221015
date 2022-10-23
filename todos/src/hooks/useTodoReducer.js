@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 export const TODO_TYPES = {
   CREATE_TODO: "CREATE_TODO",
@@ -6,7 +6,7 @@ export const TODO_TYPES = {
   DELETE_TODO: "DELETE_TODO",
 };
 
-Object.freeze(TODO_TYPES);
+Object.freeze(TODO_TYPES); //객체 동결
 
 const initialTodoState = [
   {
@@ -41,11 +41,35 @@ function reducer(state, action) {
       return state;
   }
 }
+const TodoStateContext = createContext(null);
+const TodoDispatchContext = createContext(null);
 
-function useTodoReducer() {
-  const [todos, dispatch] = useReducer(reducer, initialTodoState);
-
-  return [todos, dispatch];
+export function TodoProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialTodoState);
+  return (
+    <TodoStateContext.Provider value={state}>
+      <TodoDispatchContext.Provider value={dispatch}>
+        {children}
+      </TodoDispatchContext.Provider>
+    </TodoStateContext.Provider>
+  );
 }
 
-export default useTodoReducer;
+// function useTodoReducer() {
+//   const [todos, dispatch] = useReducer(reducer, initialTodoState);
+
+//   return [todos, dispatch];
+// }
+export function useTodoState() {
+  return useContext(TodoStateContext);
+}
+
+export function useTodoDispatch() {
+  return useContext(TodoDispatchContext);
+}
+
+//useState = > 관리할 상태값이 하나일때, 단순할 때
+//useReducer => 관리할 상태값이 여러개, 컴포넌트에서 상태관리를 분리하고 싶을 때
+
+// CRUD
+// API 연동

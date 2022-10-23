@@ -1,6 +1,9 @@
 import styled from "styled-components";
+import { useTodoState } from "../hooks/useTodoReducer";
 
-function TodoHeader({ todos }) {
+function TodoHeader() {
+  const todos = useTodoState();
+
   const dateStr = new Date().toLocaleDateString("ko-KR", { dateStyle: "full" });
   const total = todos.length;
 

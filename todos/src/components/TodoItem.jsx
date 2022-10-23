@@ -6,11 +6,13 @@ import {
 } from "react-icons/ai";
 import { css } from "styled-components";
 import { useState } from "react";
-import { TODO_TYPES } from "../hooks/useTodoReducer";
+import { TODO_TYPES, useTodoDispatch } from "../hooks/useTodoReducer";
 
-function TodoItem({ todo, dispatch }) {
+function TodoItem({ todo }) {
   const { id, text, done } = todo;
   const [remove, setRemove] = useState(false);
+  const dispatch = useTodoDispatch();
+
   const onToggle = () => {
     dispatch({ type: TODO_TYPES.TOGGLE_TODO, id, done });
   };

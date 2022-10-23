@@ -4,7 +4,7 @@ import TodoHeader from "./components/TodoHeader";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import TodoTemplate from "./components/TodoTemplate";
-import useTodoReducer from "./hooks/useTodoReducer";
+import { TodoProvider } from "./hooks/useTodoReducer";
 import { darken } from "polished";
 
 // 글로벌 스타일 적용
@@ -23,8 +23,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [todos, dispatch] = useTodoReducer();
-
   return (
     <>
       <GlobalStyle />
@@ -36,13 +34,15 @@ function App() {
           },
         }}
       >
-        <AppBlock>
-          <TodoTemplate name="sasdsad">
-            <TodoHeader todos={todos} />
-            <TodoList todos={todos} dispatch={dispatch} />
-            <TodoInput dispatch={dispatch} />
-          </TodoTemplate>
-        </AppBlock>
+        <TodoProvider>
+          <AppBlock>
+            <TodoTemplate name="sasdsad">
+              <TodoHeader />
+              <TodoList />
+              <TodoInput />
+            </TodoTemplate>
+          </AppBlock>
+        </TodoProvider>
       </ThemeProvider>
     </>
   );
