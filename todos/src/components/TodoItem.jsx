@@ -46,6 +46,7 @@ function TodoItem({ todo }) {
     </ItemBlock>
   );
 }
+
 const slideOut = keyframes`
   to{
     transform: translateX(100%);
