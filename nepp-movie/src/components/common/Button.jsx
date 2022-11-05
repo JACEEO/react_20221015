@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-function Button({ text, bgColor }) {
-  return <DefaultButton bgColor={bgColor}>{text}</DefaultButton>;
+function Button({ text, bgColor, onClick }) {
+  return (
+    <DefaultButton bgColor={bgColor} onClick={onClick}>
+      {text}
+    </DefaultButton>
+  );
 }
 
 Button.defaultProps = {
@@ -19,6 +23,9 @@ const DefaultButton = styled.button`
   background-color: ${({ bgColor }) => bgColor};
 
   cursor: pointer;
+  & + & {
+    margin-top: 5px;
+  }
 `;
 
 export default Button;
