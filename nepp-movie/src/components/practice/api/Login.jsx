@@ -6,7 +6,6 @@ import FormBox from "./FormBox";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-import { BiHeart } from "react-icons/bi";
 
 function Login() {
   const navigate = useNavigate();
