@@ -5,7 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import Movie from "./components/pages/Movie";
 import TV from "./components/pages/TV.jsx";
 import Home from "./components/pages/Home";
-import Post from "./components/practice/api/Post";
+// import Post from "./components/practice/api/Post";
+import Login from "./components/practice/api/Login";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -31,15 +32,16 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="movie" element={<Movie />} />
           <Route path="tv" element={<TV />} />
+          <Route path="login" element={<Login />} />
         </Routes>
-        <Post />
+        {/* <Post /> */}
       </MainBlock>
     </div>
   );
 }
 
 const MainBlock = styled.main`
-  padding: 50px 100px;
+  /* padding: 50px 100px; */
 `;
 export default App;
 
