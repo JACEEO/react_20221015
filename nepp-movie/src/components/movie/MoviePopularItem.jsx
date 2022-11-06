@@ -1,18 +1,22 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function MoviePopularItem({ movie }) {
-  const { title, poster_path, release_date } = movie;
+  const { id, title, poster_path, release_date } = movie;
   const url = "https://image.tmdb.org/t/p/original" + poster_path;
+
   return (
     <ItemBlock>
-      <ImgBox>
-        <img src={url} alt={movie.title} />
-      </ImgBox>
-      <TitleBox>
-        <strong>{release_date}</strong>
+      <Link to={`${id}`}>
+        <ImgBox>
+          <img src={url} alt={movie.title} />
+        </ImgBox>
+        <TitleBox>
+          <strong>{release_date}</strong>
 
-        <h4>{title}</h4>
-      </TitleBox>
+          <h4>{title}</h4>
+        </TitleBox>
+      </Link>
     </ItemBlock>
   );
 }

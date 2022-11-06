@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import { getPopularMovieList } from "../../utils/movie_api";
+import MovieDetail from "./MovieDetail";
 import MoviePopularItem from "./MoviePopularItem";
 import Title from "./Title";
 function MoviePopularList() {
@@ -10,7 +12,6 @@ function MoviePopularList() {
     getPopularMovieList().then((res) => setPopularList(res.data.results));
   }, []);
 
-  console.log(popularList);
   return (
     <div>
       <Title title="인기 영화" />
