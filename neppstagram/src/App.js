@@ -7,6 +7,7 @@ import Post from "./components/pages/Post";
 import PostList from "./components/post/PostList";
 import PostDetail from "./components/post/PostDetail";
 import AppBlock from "./AppBlock";
+import Edit from "./components/edit/Edit";
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -20,20 +21,22 @@ function App() {
   return (
     <Block>
       <InnerBlock>
-        <GlobalStyle />
         <Routes>
           <Route path="/accounts" element={<Login />}>
             <Route path="login" element={<LoginForm />}></Route>
             <Route path="signin" element={<SigninForm />}></Route>
           </Route>
-          <Route path="/" element={<AppBlock />} >
-          <Route path="/post" element={<Post />}>
-            <Route path="" element={<PostList />} />
-            <Route path=":id" element={<PostDetail />} />
+          <Route path="/" element={<AppBlock />}>
+            <Route path="/post" element={<Post />}>
+              <Route path="" element={<PostList />} />
+              <Route path=":id" element={<PostDetail />} />
+            </Route>
           </Route>
-          </Route>
+
+          <Route path="edit" element={<Edit />} />
         </Routes>
       </InnerBlock>
+      <GlobalStyle />
     </Block>
   );
 }
@@ -52,7 +55,7 @@ const InnerBlock = styled.div`
   border: 1px solid #bbb;
   overflow-y: scroll;
 
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
 `;

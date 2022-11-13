@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { postSignIn } from "../../api";
+import { useNavigate } from "react-router-dom";
+import { postSignUp } from "../../api";
 import { Button, Redbutton } from "../common/buttons";
 import { Form } from "../common/form";
 import { Input } from "../common/input";
@@ -14,9 +15,10 @@ function SigninForm() {
     confirmPass: "",
   });
 
-  const {username, password, email,confirmPass} = inputs;
+  const { username, password, email, confirmPass } = inputs;
   const [isEmpty, setIsEmpty] = useState(true);
   const disabled = isEmpty || password !== confirmPass;
+  const navigate = useNavigate();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -38,12 +40,13 @@ function SigninForm() {
   }, [inputs]);
 
   const handleSubmit = (e) => {
-    
-     e.preventDefault();
+    e.preventDefault();
 
-     postSignIn(username,email,password).then((res)=> console.log(res));
-
-  }
+    postSignUp(username, email, password).then(() => {
+      alert("회원가입에 성공하였습니다");
+      navigate("/accounts/login");
+    });
+  };
 
   return (
     <>
