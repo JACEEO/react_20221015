@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import { createGlobalStyle } from "styled-components";
 import Scroll from "./components/UI/Scroll";
+import { RecoilRoot } from "recoil";
 // import Carousel from "./components/UI/Carousel";
 
 const GlobalStyle = createGlobalStyle`
@@ -22,10 +23,10 @@ const GlobalStyle = createGlobalStyle`
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <>
+  <RecoilRoot>
     <GlobalStyle />
     <Scroll />
-  </>
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function

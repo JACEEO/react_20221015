@@ -1,7 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled, { css } from "styled-components";
+import { todoState, undoneCount } from "../../state/todos";
 
 function Scroll() {
+  const [todos, setTodos] = useRecoilState(todoState);
+  console.log(todos);
+
+  const count = useRecoilValue(undoneCount);
+  console.log(count);
+
   const [scrollAmount, setScrollAmount] = useState(0);
   const [firstTop, setFirstTop] = useState(0);
   const [imgTop, setImgTop] = useState(0);
