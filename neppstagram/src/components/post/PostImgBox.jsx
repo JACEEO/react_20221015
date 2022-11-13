@@ -15,6 +15,8 @@ function PostImgBox() {
   );
 }
 
+
+
 const Block = styled.div`
   height: 200px;
   overflow: hidden;
