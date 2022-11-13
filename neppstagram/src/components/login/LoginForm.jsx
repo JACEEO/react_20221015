@@ -16,7 +16,7 @@ function LoginForm() {
           <Button>Login</Button>
 
           <Redbutton>
-            <Link to="/signin">Signin</Link>
+            <Link to="/accounts/signin">Signin</Link>
           </Redbutton>
         </div>
       </Form>

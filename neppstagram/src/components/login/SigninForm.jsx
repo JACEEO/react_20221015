@@ -1,4 +1,6 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { postSignIn } from "../../api";
 import { Button, Redbutton } from "../common/buttons";
 import { Form } from "../common/form";
 import { Input } from "../common/input";
@@ -12,8 +14,9 @@ function SigninForm() {
     confirmPass: "",
   });
 
+  const {username, password, email,confirmPass} = inputs;
   const [isEmpty, setIsEmpty] = useState(true);
-  const disabled = isEmpty || inputs.password !== inputs.confirmPass;
+  const disabled = isEmpty || password !== confirmPass;
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -34,10 +37,18 @@ function SigninForm() {
     setIsEmpty(false);
   }, [inputs]);
 
+  const handleSubmit = (e) => {
+    
+     e.preventDefault();
+
+     postSignIn(username,email,password).then((res)=> console.log(res));
+
+  }
+
   return (
     <>
       <Title title="Signin" />
-      <Form margin="20px 0">
+      <Form margin="20px 0" onSubmit={handleSubmit}>
         <Input
           placeholder="이름을 입력하세요"
           name="username"
@@ -50,11 +61,13 @@ function SigninForm() {
         />
         <Input
           placeholder="비밀번호를 입력하세요"
+          type="password"
           name="password"
           onChange={handleInput}
         />
         <Input
           placeholder="비밀번호를 확인해주세요"
+          type="password"
           name="confirmPass"
           onChange={handleInput}
         />

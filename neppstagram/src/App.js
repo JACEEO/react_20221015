@@ -6,6 +6,7 @@ import SigninForm from "./components/login/SigninForm";
 import Post from "./components/pages/Post";
 import PostList from "./components/post/PostList";
 import PostDetail from "./components/post/PostDetail";
+import AppBlock from "./AppBlock";
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -21,13 +22,15 @@ function App() {
       <InnerBlock>
         <GlobalStyle />
         <Routes>
-          <Route path="/" element={<Login />}>
+          <Route path="/accounts" element={<Login />}>
             <Route path="login" element={<LoginForm />}></Route>
             <Route path="signin" element={<SigninForm />}></Route>
           </Route>
+          <Route path="/" element={<AppBlock />} >
           <Route path="/post" element={<Post />}>
             <Route path="" element={<PostList />} />
             <Route path=":id" element={<PostDetail />} />
+          </Route>
           </Route>
         </Routes>
       </InnerBlock>
@@ -44,9 +47,14 @@ const Block = styled.div`
 `;
 
 const InnerBlock = styled.div`
-  width: 300px;
+  width: 200px;
   height: 500px;
   border: 1px solid #bbb;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
 `;
 
 export default App;
